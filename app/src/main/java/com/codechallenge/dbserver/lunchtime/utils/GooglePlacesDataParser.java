@@ -1,4 +1,4 @@
-package com.codechallenge.dbserver.lunchtime;
+package com.codechallenge.dbserver.lunchtime.utils;
 
 import android.util.Log;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * Created by thulioaraujo on 1/7/2017.
  */
 
-public class DataParser {
+public class GooglePlacesDataParser {
     public List<HashMap<String, String>> parse(String jsonData) {
         JSONArray jsonArray = null;
         JSONObject jsonObject;

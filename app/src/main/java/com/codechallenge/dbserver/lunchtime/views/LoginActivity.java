@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private UserLoginTask mAuthTask = null;
 
     private ProgressDialog progressDialog;
-
+    private String userName;
     @InjectView(R.id.input_email) EditText emailText;
     @InjectView(R.id.input_password) EditText passwordText;
     @InjectView(R.id.btn_login) Button loginButton;
@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
-
+                userName = data.getStringExtra(MainAplicationConstants.NAME_PARAM);
                 emailText.setText(data.getStringExtra(MainAplicationConstants.EMAIL_PARAM));
                 passwordText.setText(data.getStringExtra(MainAplicationConstants.PASSWORD_PARAM));
                 login();
@@ -130,6 +130,8 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sharedPref = this.getSharedPreferences(MainAplicationConstants.CATEGORY,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean(getString(R.string.preferences_login), true);
+        editor.putString(MainAplicationConstants.NAME_PARAM, userName);
+        editor.putString(MainAplicationConstants.EMAIL_PARAM, emailText.getText().toString());
         editor.commit();
 
         Intent intent = new Intent(this, MainActivity.class);
@@ -166,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Represents an asynchronous login/registration task used to authenticate
+     * Represents an asynchronous login task used to authenticate
      * the user.
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {

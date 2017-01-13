@@ -19,9 +19,8 @@
         android:gravity="center">
 
         <ImageView
-            android:layout_width="192px"
-            android:layout_height="192px"
-            android:layout_centerInParent="true"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:src="@mipmap/ic_launcher"/>
 
         <TextView
@@ -29,7 +28,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_centerInParent="true"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/cast_expanded_controller_background_color"

@@ -1,9 +1,10 @@
 package com.codechallenge.dbserver.lunchtime.views;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -11,8 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.codechallenge.dbserver.lunchtime.R;
+import com.codechallenge.dbserver.lunchtime.utils.MainAplicationConstants;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -30,7 +34,16 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        // Fill the user credentials on the menu bar
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(MainAplicationConstants.CATEGORY, 0);
+        boolean isAlreadyLogged = sharedPref.getBoolean(getString(R.string.preferences_login), Boolean.FALSE);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerLayout = navigationView.getHeaderView(0);
+        TextView userName = (TextView) headerLayout.findViewById(R.id.user_name);
+        userName.setText(sharedPref.getString(MainAplicationConstants.NAME_PARAM, null));
+        TextView userEmail = (TextView) headerLayout.findViewById(R.id.user_email);
+        userEmail.setText(sharedPref.getString(MainAplicationConstants.EMAIL_PARAM, null));
+
         navigationView.setNavigationItemSelectedListener(this);
         displayView(R.id.nav_restaurant_list);
     }
@@ -52,21 +65,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -86,9 +84,6 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_restaurant_map:
                 fragmentClass = RestaurantMapViewer.class;
-                break;
-            case R.id.nav_manage:
-
                 break;
             default:
                 fragmentClass = RestaurantListViewer.class;

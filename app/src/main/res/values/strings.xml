@@ -20,5 +20,9 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <!-- Strings related to dialog votes activity -->
+    <string name="lbl_adress">Adress: </string>
+    <string name="lbl_daily_votes">Daily votes: </string>
     <string name="title_activity_maps">Map</string>
 </resources>

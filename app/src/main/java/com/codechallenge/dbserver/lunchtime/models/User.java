@@ -12,12 +12,11 @@ public class User {
 
     public User(){}
 
-    public User(String userName, String userLogin, String userPassword, byte[] userAvatar) {
+    public User(String userName, String userLogin, String userPassword) {
         super();
         this.userName = userName;
         this.userLogin = userLogin;
         this.userPassword = userPassword;
-        this.userAvatar = userAvatar;
     }
 
     public String getUserName() {

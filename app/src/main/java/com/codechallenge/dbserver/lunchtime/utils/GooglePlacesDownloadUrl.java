@@ -1,4 +1,4 @@
-package com.codechallenge.dbserver.lunchtime;
+package com.codechallenge.dbserver.lunchtime.utils;
 
 import android.util.Log;
 
@@ -13,7 +13,7 @@ import java.net.URL;
  * Created by thulioaraujo on 1/7/2017.
  */
 
-public class DownloadUrl {
+public class GooglePlacesDownloadUrl {
     public String readUrl(String strUrl) throws IOException {
         String data = "";
         InputStream iStream = null;

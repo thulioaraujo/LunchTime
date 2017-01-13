@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.codechallenge.dbserver.lunchtime.R;
 import com.codechallenge.dbserver.lunchtime.controller.UserController;
+import com.codechallenge.dbserver.lunchtime.models.User;
 import com.codechallenge.dbserver.lunchtime.utils.MainAplicationConstants;
 
 import butterknife.ButterKnife;
@@ -74,7 +75,9 @@ public class SignupActivity extends AppCompatActivity {
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
 
-        mAuthTask = new UserSignupTask(name, email, password);
+        User user = new User(name, email, password);
+
+        mAuthTask = new UserSignupTask(user);
         mAuthTask.execute((Void) null);
     }
 
@@ -82,6 +85,7 @@ public class SignupActivity extends AppCompatActivity {
     public void onSignupSuccess() {
         signupButton.setEnabled(true);
         Intent intent = getIntent();
+        intent.putExtra(MainAplicationConstants.NAME_PARAM, nameText.getText().toString());
         intent.putExtra(MainAplicationConstants.EMAIL_PARAM, emailText.getText().toString());
         intent.putExtra(MainAplicationConstants.PASSWORD_PARAM, passwordText.getText().toString());
         setResult(RESULT_OK, intent);
@@ -140,25 +144,21 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     /**
-     * Represents an asynchronous login/registration task used to authenticate
+     * Represents an asynchronous registration task used to authenticate
      * the user.
      */
     public class UserSignupTask extends AsyncTask<Void, Void, Boolean> {
 
-        private final String mName;
-        private final String mEmail;
-        private final String mPassword;
+        private User mUser;
 
-        UserSignupTask(String name, String email, String password) {
-            mName = name;
-            mEmail = email;
-            mPassword = password;
+        UserSignupTask(User user) {
+            mUser = user;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
 
-            if (UserController.getInstance().signupUser(mName, mEmail, mPassword)){
+            if (UserController.getInstance().signupUser(mUser)){
                 return true;
             } else {
                 return false;
