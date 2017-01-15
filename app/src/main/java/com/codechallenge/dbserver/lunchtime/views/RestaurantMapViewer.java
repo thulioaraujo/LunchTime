@@ -41,6 +41,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Created by thulioaraujo on 1/7/2017.
+ *
+ * This fragment shows all the closest restaurants on the map
+ */
 public class RestaurantMapViewer extends Fragment implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
 

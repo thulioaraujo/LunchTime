@@ -67,13 +67,18 @@
             android:value="@string/google_maps_key"/>
 
         <service
-            android:name=".service.LunchTimeService"
+            android:name="com.codechallenge.dbserver.lunchtime.service.LunchTimeService"
             android:enabled="true"
             android:exported="false">
+            <intent-filter>
+                <action android:name="LUNCHTIME_SERVICE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
         </service>
 
-        <receiver android:name=".service.NotificationEventReceiver" />
-        <receiver android:name=".service.NotificationServiceStarterReceiver">
+        <receiver android:name="com.codechallenge.dbserver.lunchtime.service.NotificationServiceStarterReceiver"
+                  android:enabled="true"
+                  android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />

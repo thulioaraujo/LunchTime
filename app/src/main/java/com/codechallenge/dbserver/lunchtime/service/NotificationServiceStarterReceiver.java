@@ -8,6 +8,8 @@ public class NotificationServiceStarterReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        NotificationEventReceiver.setupAlarm(context);
+        Intent service = new Intent(context, LunchTimeService.class);
+        service.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startService(service);
     }
 }

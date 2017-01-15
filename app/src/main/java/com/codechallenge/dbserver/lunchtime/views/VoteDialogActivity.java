@@ -26,6 +26,9 @@ import org.json.JSONObject;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+/**
+ * Created by thulioaraujo on 1/7/2017.
+ */
 public class VoteDialogActivity extends AppCompatActivity {
 
     @InjectView(R.id.restaurant_name) TextView restaurantName;

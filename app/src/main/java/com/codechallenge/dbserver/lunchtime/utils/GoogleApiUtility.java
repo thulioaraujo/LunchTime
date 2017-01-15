@@ -13,7 +13,6 @@ import com.google.android.gms.common.GoogleApiAvailability;
 /**
  * Created by thulioaraujo on 1/11/2017.
  */
-
 public class GoogleApiUtility {
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;

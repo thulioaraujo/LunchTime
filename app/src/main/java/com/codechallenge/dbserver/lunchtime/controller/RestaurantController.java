@@ -14,7 +14,6 @@ import cz.msebera.android.httpclient.Header;
 /**
  * Created by thulioaraujo on 1/10/2017.
  */
-
 public class RestaurantController {
 
     private boolean registerResult;

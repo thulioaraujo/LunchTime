@@ -13,7 +13,6 @@ import java.util.List;
 /**
  * Created by thulioaraujo on 1/7/2017.
  */
-
 public class GooglePlacesDataParser {
     public List<HashMap<String, String>> parse(String jsonData) {
         JSONArray jsonArray = null;

@@ -12,7 +12,6 @@ import java.net.URL;
 /**
  * Created by thulioaraujo on 1/7/2017.
  */
-
 public class GooglePlacesDownloadUrl {
     public String readUrl(String strUrl) throws IOException {
         String data = "";

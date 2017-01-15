@@ -18,6 +18,9 @@ import android.widget.TextView;
 import com.codechallenge.dbserver.lunchtime.R;
 import com.codechallenge.dbserver.lunchtime.utils.MainAplicationConstants;
 
+/**
+ * Tthe main activity which implements the menu navigation and start the fragments
+ */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

@@ -16,12 +16,12 @@ import cz.msebera.android.httpclient.Header;
 
 public class UserController {
 
-    private boolean loginResult;
+    private JSONObject loginResult;
     private boolean signupResult;
     private static UserController getInstance = null;
 
     private UserController(){
-        this.loginResult = false;
+        this.loginResult = null;
         this.signupResult = false;
     }
 
@@ -37,7 +37,7 @@ public class UserController {
      *
      * @param userName, userPassword
      */
-    public boolean loginUser(String userName, String userPassword){
+    public JSONObject loginUser(String userName, String userPassword){
         // Instantiate Http Request Param Object
         RequestParams params = new RequestParams();
         // Put Http parameter username with value of Email Edit View control
@@ -57,7 +57,7 @@ public class UserController {
      */
     private void checkLoginOnWS(RequestParams params){
         SyncHttpClient client = new SyncHttpClient();
-        this.loginResult = false;
+        this.loginResult = null;
 
         client.get("https://stark-temple-49959.herokuapp.com/user_controller/dologin", params, new JsonHttpResponseHandler() {
 
@@ -65,31 +65,26 @@ public class UserController {
             public void onSuccess(int statusCode, Header[] headers, JSONObject responseBody) {
                 try {
                     // When the JSON response has status boolean value assigned with true
-                    if(responseBody.getBoolean("status")){
-                        //Toast.makeText(ctx, "You are successfully logged in!", Toast.LENGTH_LONG).show();
-                        loginResult =  true;
+                    if(responseBody.getBoolean("logged")){
+                        loginResult = responseBody;
                     }
                     // Else display error message
                     else{
-                        //Toast.makeText(ctx, responseBody.getString("error_msg"), Toast.LENGTH_LONG).show();
-                        loginResult = false;
+                        loginResult = null;
                     }
                 } catch (JSONException e) {
-                    //Toast.makeText(ctx, "Error Occured [Server's JSON response might be invalid]!", Toast.LENGTH_LONG).show();
-                    loginResult = false;
+                    loginResult = null;
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {// When Http response code is '404'
                 if(statusCode == 404){
-                    //Toast.makeText(ctx, "Requested resource not found", Toast.LENGTH_LONG).show();
-                    loginResult = false;
+                    loginResult = errorResponse;
                 }
                 // When Http response code is '500'
                 else if(statusCode == 500){
-                    //Toast.makeText(ctx, "Something went wrong at server end", Toast.LENGTH_LONG).show();
-                    loginResult = false;
+                    loginResult = errorResponse;
                 }
             }
         });

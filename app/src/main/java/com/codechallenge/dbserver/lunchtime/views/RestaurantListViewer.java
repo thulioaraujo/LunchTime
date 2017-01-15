@@ -40,8 +40,9 @@ import butterknife.InjectView;
 
 /**
  * Created by thulioaraujo on 1/7/2017.
+ *
+ * This fragment display the list of restaurant close to the user
  */
-
 public class RestaurantListViewer extends Fragment implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 

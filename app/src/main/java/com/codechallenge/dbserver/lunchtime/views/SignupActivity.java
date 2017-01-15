@@ -20,6 +20,9 @@ import com.codechallenge.dbserver.lunchtime.utils.MainAplicationConstants;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+/**
+ * Created by thulioaraujo on 1/7/2017.
+ */
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
     /**

@@ -1,6 +1,7 @@
 package com.codechallenge.dbserver.lunchtime.controller;
 
 import com.codechallenge.dbserver.lunchtime.models.Vote;
+import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.SyncHttpClient;
@@ -71,7 +72,7 @@ public class VotingController {
         RequestParams params = new RequestParams();
         // Put Http parameter name with value of Restaurant name
         params.put("restaurant_name", restaurantName);
-        mRestaurantVotes = getDailyRestaurantVotesOnWs(params);
+        getDailyRestaurantVotesOnWs(params);
         return mRestaurantVotes;
     }
 

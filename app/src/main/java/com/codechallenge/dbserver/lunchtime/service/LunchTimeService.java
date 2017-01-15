@@ -4,13 +4,13 @@ import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.WakefulBroadcastReceiver;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.support.v7.app.NotificationCompat;
-import android.util.Log;
 
 import com.codechallenge.dbserver.lunchtime.R;
 import com.codechallenge.dbserver.lunchtime.controller.VotingController;
@@ -19,52 +19,41 @@ import com.codechallenge.dbserver.lunchtime.views.LaunchActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 /**
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
  * <p>
  */
-public class LunchTimeService extends IntentService {
+public class LunchTimeService extends Service {
     private static final int NOTIFICATION_ID = 1;
-
-    // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
-    private static final String ACTION_START = "ACTION_START";
-    private static final String ACTION_DELETE = "ACTION_DELETE";
-
-    public LunchTimeService() {
-        super(LunchTimeService.class.getSimpleName());
-    }
-
-    public static Intent createIntentStartNotificationService(Context context) {
-        Intent intent = new Intent(context, LunchTimeService.class);
-        intent.setAction(ACTION_START);
-        return intent;
-    }
-
-    public static Intent createIntentDeleteNotification(Context context) {
-        Intent intent = new Intent(context, LunchTimeService.class);
-        intent.setAction(ACTION_DELETE);
-        return intent;
-    }
+    private ProcessRestaurantOfTheDayTask processRestaurantOfTheDayTask;
 
     @Override
-    protected void onHandleIntent(Intent intent) {
-        Log.d(getClass().getSimpleName(), "onHandleIntent, started handling a notification event");
-        try {
-            String action = intent.getAction();
-            if (ACTION_START.equals(action)) {
-                processStartNotification(VotingController.getInstance().getmMostVotedRestaurant());
-            }
-            if (ACTION_DELETE.equals(action)) {
-                processDeleteNotification(intent);
-            }
-        } finally {
-            WakefulBroadcastReceiver.completeWakefulIntent(intent);
-        }
-    }
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        super.onStartCommand(intent, flags, startId);
 
-    private void processDeleteNotification(Intent intent) {
-        Log.d(getClass().getSimpleName(), "onHandleIntent, finish handling a notification event");
+        Calendar cur_cal = new GregorianCalendar();
+        cur_cal.setTimeInMillis(System.currentTimeMillis());//set the current time and date for this calendar
+
+        Calendar cal = new GregorianCalendar();
+        cal.add(Calendar.DAY_OF_YEAR, cur_cal.get(Calendar.DAY_OF_YEAR));
+        cal.set(Calendar.HOUR_OF_DAY, 13);
+        cal.set(Calendar.MINUTE, 00);
+        cal.set(Calendar.SECOND, 00);
+        cal.set(Calendar.AM_PM, Calendar.PM);
+        cal.set(Calendar.DATE, cur_cal.get(Calendar.DATE));
+        cal.set(Calendar.MONTH, cur_cal.get(Calendar.MONTH));
+
+        if (cur_cal.get(Calendar.HOUR_OF_DAY) == cal.get(Calendar.HOUR_OF_DAY) &&
+            cur_cal.get(Calendar.MINUTE) == cal.get(Calendar.MINUTE) &&
+            cur_cal.get(Calendar.SECOND) == cal.get(Calendar.SECOND)) {
+            processRestaurantOfTheDayTask = new ProcessRestaurantOfTheDayTask();
+            processRestaurantOfTheDayTask.execute();
+        }
+        return Service.START_STICKY;
     }
 
     private void processStartNotification(JSONObject obj) {
@@ -92,12 +81,40 @@ public class LunchTimeService extends IntentService {
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 NOTIFICATION_ID,
-                new Intent(this, LaunchActivity.class),
+                new Intent(this.getApplicationContext(), LaunchActivity.class),
                 PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(pendingIntent);
-        builder.setDeleteIntent(NotificationEventReceiver.getDeleteIntent(this));
 
         final NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(NOTIFICATION_ID, builder.build());
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    public class ProcessRestaurantOfTheDayTask extends AsyncTask<Void, Void, Boolean> {
+
+        private JSONObject obj;
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            obj = VotingController.getInstance().getmMostVotedRestaurant();
+            if (obj != null) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+
+            if (aBoolean) {
+                processStartNotification(obj);
+            }
+        }
     }
 }

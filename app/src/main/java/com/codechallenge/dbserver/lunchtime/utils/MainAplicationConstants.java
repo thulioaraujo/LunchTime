@@ -3,7 +3,6 @@ package com.codechallenge.dbserver.lunchtime.utils;
 /**
  * Created by thulioaraujo on 1/10/2017.
  */
-
 public class MainAplicationConstants {
     public static final String CATEGORY = "LUNCH_TIME";
 

@@ -18,6 +18,9 @@ import com.codechallenge.dbserver.lunchtime.R;
 import com.codechallenge.dbserver.lunchtime.controller.UserController;
 import com.codechallenge.dbserver.lunchtime.utils.MainAplicationConstants;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -35,6 +38,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
     private String userName;
+    private JSONObject loginResponse;
+
+    // Inbject the components on the activity
     @InjectView(R.id.input_email) EditText emailText;
     @InjectView(R.id.input_password) EditText passwordText;
     @InjectView(R.id.btn_login) Button loginButton;
@@ -71,6 +77,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Performs the login using an AsyncTask
+     */
     public void login() {
         Log.d(TAG, "Login");
 
@@ -91,7 +100,6 @@ public class LoginActivity extends AppCompatActivity {
         showProgress(true);
         mAuthTask = new UserLoginTask(email, password);
         mAuthTask.execute((Void) null);
-
     }
 
     /**
@@ -130,6 +138,11 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences sharedPref = this.getSharedPreferences(MainAplicationConstants.CATEGORY,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean(getString(R.string.preferences_login), true);
+        try {
+            userName = loginResponse.getString("user_name");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         editor.putString(MainAplicationConstants.NAME_PARAM, userName);
         editor.putString(MainAplicationConstants.EMAIL_PARAM, emailText.getText().toString());
         editor.commit();
@@ -183,8 +196,8 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-
-            if (UserController.getInstance().loginUser(mEmail, mPassword)){
+            loginResponse = UserController.getInstance().loginUser(mEmail, mPassword);
+            if (loginResponse != null){
                 return true;
             } else {
                 return false;
