@@ -21,7 +21,7 @@ import android.widget.ListView;
 
 import com.codechallenge.dbserver.lunchtime.R;
 import com.codechallenge.dbserver.lunchtime.adapters.RestaurantListAdapter;
-import com.codechallenge.dbserver.lunchtime.controller.RestaurantController;
+import com.codechallenge.dbserver.lunchtime.presenter.RestaurantController;
 import com.codechallenge.dbserver.lunchtime.models.Restaurant;
 import com.codechallenge.dbserver.lunchtime.utils.GoogleApiUtility;
 import com.codechallenge.dbserver.lunchtime.utils.GooglePlacesDataParser;
@@ -34,9 +34,6 @@ import com.google.android.gms.location.LocationServices;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Created by thulioaraujo on 1/7/2017.

@@ -6,16 +6,16 @@ package com.codechallenge.dbserver.lunchtime.models;
 public class User {
 
     private String userName;
-    private String userLogin;
+    private String userEmail;
     private String userPassword;
     private byte[] userAvatar;
 
     public User(){}
 
-    public User(String userName, String userLogin, String userPassword) {
+    public User(String userName, String userEmail, String userPassword) {
         super();
         this.userName = userName;
-        this.userLogin = userLogin;
+        this.userEmail = userEmail;
         this.userPassword = userPassword;
     }
 
@@ -27,12 +27,12 @@ public class User {
         this.userName = userName;
     }
 
-    public String getUserLogin() {
-        return userLogin;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUserLogin(String userLogin) {
-        this.userLogin = userLogin;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getUserPassword() {

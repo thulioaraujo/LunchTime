@@ -1,6 +1,5 @@
 package com.codechallenge.dbserver.lunchtime.views;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codechallenge.dbserver.lunchtime.R;
-import com.codechallenge.dbserver.lunchtime.controller.VotingController;
+import com.codechallenge.dbserver.lunchtime.presenter.VotingController;
 import com.codechallenge.dbserver.lunchtime.models.Restaurant;
 import com.codechallenge.dbserver.lunchtime.models.Vote;
 import com.codechallenge.dbserver.lunchtime.utils.MainAplicationConstants;

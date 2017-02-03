@@ -1,4 +1,6 @@
-package com.codechallenge.dbserver.lunchtime.controller;
+package com.codechallenge.dbserver.lunchtime.presenter;
+
+import android.support.annotation.Nullable;
 
 import com.codechallenge.dbserver.lunchtime.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -14,20 +16,20 @@ import cz.msebera.android.httpclient.Header;
  * Created by thulioaraujo on 1/10/2017.
  */
 
-public class UserController {
+public class LoginPresenter {
 
     private JSONObject loginResult;
     private boolean signupResult;
-    private static UserController getInstance = null;
+    private static LoginPresenter getInstance = null;
 
-    private UserController(){
+    private LoginPresenter(){
         this.loginResult = null;
         this.signupResult = false;
     }
 
-    public static UserController getInstance() {
+    public static LoginPresenter getInstance() {
         if (getInstance == null) {
-            getInstance = new UserController();
+            getInstance = new LoginPresenter();
         }
         return getInstance;
     }
@@ -101,7 +103,7 @@ public class UserController {
         // Put Http parameter name with value of Name Edit View control
         params.put("name", user.getUserName());
         // Put Http parameter username with value of Email Edit View control
-        params.put("username", user.getUserLogin());
+        params.put("username", user.getUserEmail());
         // Put Http parameter password with value of Password Edit View control
         params.put("password", user.getUserPassword());
         // Invoke RESTful Web Service with Http parameters
@@ -153,5 +155,15 @@ public class UserController {
                 }
             }
         });
+    }
+
+    public boolean validadeEmptyFields(@Nullable String userEmail, @Nullable String userPassword) {
+        if (userEmail != null && userPassword != null) {
+            if (!userEmail.isEmpty() && !userPassword.isEmpty()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

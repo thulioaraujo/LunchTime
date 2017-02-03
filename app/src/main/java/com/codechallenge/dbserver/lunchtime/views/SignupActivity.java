@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codechallenge.dbserver.lunchtime.R;
-import com.codechallenge.dbserver.lunchtime.controller.UserController;
+import com.codechallenge.dbserver.lunchtime.presenter.LoginPresenter;
 import com.codechallenge.dbserver.lunchtime.models.User;
 import com.codechallenge.dbserver.lunchtime.utils.MainAplicationConstants;
 
@@ -161,7 +161,7 @@ public class SignupActivity extends AppCompatActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
 
-            if (UserController.getInstance().signupUser(mUser)){
+            if (LoginPresenter.getInstance().signupUser(mUser)){
                 return true;
             } else {
                 return false;

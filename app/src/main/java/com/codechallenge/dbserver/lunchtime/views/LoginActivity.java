@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codechallenge.dbserver.lunchtime.R;
-import com.codechallenge.dbserver.lunchtime.controller.UserController;
+import com.codechallenge.dbserver.lunchtime.presenter.LoginPresenter;
 import com.codechallenge.dbserver.lunchtime.utils.MainAplicationConstants;
 
 import org.json.JSONException;
@@ -196,7 +196,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            loginResponse = UserController.getInstance().loginUser(mEmail, mPassword);
+            loginResponse = LoginPresenter.getInstance().loginUser(mEmail, mPassword);
             if (loginResponse != null){
                 return true;
             } else {

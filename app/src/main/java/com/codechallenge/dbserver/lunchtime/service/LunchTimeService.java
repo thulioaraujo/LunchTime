@@ -13,7 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.NotificationCompat;
 
 import com.codechallenge.dbserver.lunchtime.R;
-import com.codechallenge.dbserver.lunchtime.controller.VotingController;
+import com.codechallenge.dbserver.lunchtime.presenter.VotingController;
 import com.codechallenge.dbserver.lunchtime.views.LaunchActivity;
 
 import org.json.JSONException;

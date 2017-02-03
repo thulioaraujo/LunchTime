@@ -1,7 +1,6 @@
-package com.codechallenge.dbserver.lunchtime.controller;
+package com.codechallenge.dbserver.lunchtime.presenter;
 
 import com.codechallenge.dbserver.lunchtime.models.Restaurant;
-import com.codechallenge.dbserver.lunchtime.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.SyncHttpClient;
