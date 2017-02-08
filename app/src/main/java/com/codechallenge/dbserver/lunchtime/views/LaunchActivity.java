@@ -14,7 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.codechallenge.dbserver.lunchtime.R;
 import com.codechallenge.dbserver.lunchtime.service.LunchTimeService;
 import com.codechallenge.dbserver.lunchtime.service.NotificationServiceStarterReceiver;
-import com.codechallenge.dbserver.lunchtime.utils.MainAplicationConstants;
+import com.codechallenge.dbserver.lunchtime.utils.Constants;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -70,7 +70,7 @@ public class LaunchActivity extends AppCompatActivity implements Runnable {
         public void handleMessage(Message msg) {
 
         // Check if the user has been logged before
-        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(MainAplicationConstants.CATEGORY, 0);
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(Constants.APPLICATION_NAME, 0);
         boolean isAlreadyLogged = sharedPref.getBoolean(getString(R.string.preferences_login), Boolean.FALSE);
 
         if (isAlreadyLogged) {

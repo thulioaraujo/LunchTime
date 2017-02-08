@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.codechallenge.dbserver.lunchtime.R;
 import com.codechallenge.dbserver.lunchtime.presenter.LoginPresenter;
-import com.codechallenge.dbserver.lunchtime.utils.MainAplicationConstants;
+import com.codechallenge.dbserver.lunchtime.utils.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,8 +70,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
             // Start the Signup activity
             Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
-            intent.putExtra(MainAplicationConstants.EMAIL_PARAM,  emailText.getText().toString());
-            intent.putExtra(MainAplicationConstants.PASSWORD_PARAM,  passwordText.getText().toString());
+            intent.putExtra(Constants.EMAIL_PARAM,  emailText.getText().toString());
+            intent.putExtra(Constants.PASSWORD_PARAM,  passwordText.getText().toString());
             startActivityForResult(intent, REQUEST_SIGNUP);
             }
         });
@@ -117,9 +117,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
-                userName = data.getStringExtra(MainAplicationConstants.NAME_PARAM);
-                emailText.setText(data.getStringExtra(MainAplicationConstants.EMAIL_PARAM));
-                passwordText.setText(data.getStringExtra(MainAplicationConstants.PASSWORD_PARAM));
+                userName = data.getStringExtra(Constants.NAME_PARAM);
+                emailText.setText(data.getStringExtra(Constants.EMAIL_PARAM));
+                passwordText.setText(data.getStringExtra(Constants.PASSWORD_PARAM));
                 login();
             }
         }
@@ -135,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setEnabled(true);
 
         // SharedPreferences to hold the status of the user to login only once
-        SharedPreferences sharedPref = this.getSharedPreferences(MainAplicationConstants.CATEGORY,Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = this.getSharedPreferences(Constants.APPLICATION_NAME,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean(getString(R.string.preferences_login), true);
         try {
@@ -143,8 +143,8 @@ public class LoginActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        editor.putString(MainAplicationConstants.NAME_PARAM, userName);
-        editor.putString(MainAplicationConstants.EMAIL_PARAM, emailText.getText().toString());
+        editor.putString(Constants.NAME_PARAM, userName);
+        editor.putString(Constants.EMAIL_PARAM, emailText.getText().toString());
         editor.commit();
 
         Intent intent = new Intent(this, MainActivity.class);

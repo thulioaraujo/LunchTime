@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.codechallenge.dbserver.lunchtime.R;
 import com.codechallenge.dbserver.lunchtime.presenter.LoginPresenter;
 import com.codechallenge.dbserver.lunchtime.models.User;
-import com.codechallenge.dbserver.lunchtime.utils.MainAplicationConstants;
+import com.codechallenge.dbserver.lunchtime.utils.Constants;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -88,9 +88,9 @@ public class SignupActivity extends AppCompatActivity {
     public void onSignupSuccess() {
         signupButton.setEnabled(true);
         Intent intent = getIntent();
-        intent.putExtra(MainAplicationConstants.NAME_PARAM, nameText.getText().toString());
-        intent.putExtra(MainAplicationConstants.EMAIL_PARAM, emailText.getText().toString());
-        intent.putExtra(MainAplicationConstants.PASSWORD_PARAM, passwordText.getText().toString());
+        intent.putExtra(Constants.NAME_PARAM, nameText.getText().toString());
+        intent.putExtra(Constants.EMAIL_PARAM, emailText.getText().toString());
+        intent.putExtra(Constants.PASSWORD_PARAM, passwordText.getText().toString());
         setResult(RESULT_OK, intent);
         finish();
     }

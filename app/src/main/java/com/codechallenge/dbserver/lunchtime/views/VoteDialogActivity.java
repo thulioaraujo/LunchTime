@@ -17,7 +17,7 @@ import com.codechallenge.dbserver.lunchtime.R;
 import com.codechallenge.dbserver.lunchtime.presenter.VotingController;
 import com.codechallenge.dbserver.lunchtime.models.Restaurant;
 import com.codechallenge.dbserver.lunchtime.models.Vote;
-import com.codechallenge.dbserver.lunchtime.utils.MainAplicationConstants;
+import com.codechallenge.dbserver.lunchtime.utils.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,9 +61,9 @@ public class VoteDialogActivity extends AppCompatActivity {
                 progressDialog.setMessage("Recording vote...");
                 showProgress(true);
                 // Get the user email from the SharedPreferences stored during login
-                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(MainAplicationConstants.CATEGORY, 0);
+                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(Constants.APPLICATION_NAME, 0);
                 Vote vote = new Vote();
-                vote.setUserUserName(sharedPref.getString(MainAplicationConstants.EMAIL_PARAM, null));
+                vote.setUserUserName(sharedPref.getString(Constants.EMAIL_PARAM, null));
                 vote.setRestaurantName(restaurant.getRestaurantName());
                 mVotingTask = new VotingTask(vote, getApplicationContext());
                 mVotingTask.execute();

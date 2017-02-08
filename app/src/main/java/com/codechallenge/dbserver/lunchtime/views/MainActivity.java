@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.codechallenge.dbserver.lunchtime.R;
-import com.codechallenge.dbserver.lunchtime.utils.MainAplicationConstants;
+import com.codechallenge.dbserver.lunchtime.utils.Constants;
 
 /**
  * Tthe main activity which implements the menu navigation and start the fragments
@@ -38,14 +38,14 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         // Fill the user credentials on the menu bar
-        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(MainAplicationConstants.CATEGORY, 0);
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(Constants.APPLICATION_NAME, 0);
         boolean isAlreadyLogged = sharedPref.getBoolean(getString(R.string.preferences_login), Boolean.FALSE);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerLayout = navigationView.getHeaderView(0);
         TextView userName = (TextView) headerLayout.findViewById(R.id.user_name);
-        userName.setText(sharedPref.getString(MainAplicationConstants.NAME_PARAM, null));
+        userName.setText(sharedPref.getString(Constants.NAME_PARAM, null));
         TextView userEmail = (TextView) headerLayout.findViewById(R.id.user_email);
-        userEmail.setText(sharedPref.getString(MainAplicationConstants.EMAIL_PARAM, null));
+        userEmail.setText(sharedPref.getString(Constants.EMAIL_PARAM, null));
 
         navigationView.setNavigationItemSelectedListener(this);
         displayView(R.id.nav_restaurant_list);

@@ -52,7 +52,7 @@ public class GoogleApiUtility {
 
         StringBuilder googlePlacesUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googlePlacesUrl.append("location=" + latitude + "," + longitude);
-        googlePlacesUrl.append("&radius=" + MainAplicationConstants.PROXIMITY_RADIUS);
+        googlePlacesUrl.append("&radius=" + Constants.PROXIMITY_RADIUS);
         googlePlacesUrl.append("&type=" + nearbyPlace);
         googlePlacesUrl.append("&sensor=true");
         googlePlacesUrl.append("&key=" + context.getString(R.string.google_maps_key));
